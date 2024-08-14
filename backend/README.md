@@ -1,1 +1,1 @@
-# AI-Saas-Chatbot-MERN
+# AI-Chatbot-MERN
