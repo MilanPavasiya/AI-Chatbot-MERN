@@ -1,1 +1,2 @@
 ai-chatbot-backend/.env
+*node_modules/*
