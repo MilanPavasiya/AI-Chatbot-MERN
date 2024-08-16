@@ -69,7 +69,7 @@ To run this application, you will need the following installed:
 ## Application Structure
 
 ### Backend (Node.js & Express.js)
-- **`server.js`**: Entry point for the server, sets up Express, middleware, and routing.
+- **`app.ts`**: Entry point for the server and routing.
 - **`routes/`**: Contains API routes for handling user activities, CRUD operations, etc.
 - **`models/`**: MongoDB models for users and messages.
 - **`db/`**: Database connectivity.
