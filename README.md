@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a custom AI-powered chatbot application inspired by ChatGPT. It is built using the MERN (MongoDB, Express.js, React.js, Node.js) stack and integrates OpenAI’s powerful language model. 
+This project is a custom AI-powered chatbot application inspired by ChatGPT. It is built using the MERN (MongoDB, Express.js, React.js, Node.js) stack and integrates OpenAI’s powerful language model.
 
 The chatbot allows users to interact with an AI in real-time, and features secure storage of user conversations, including the ability to retrieve and delete previous messages. Security measures such as JWT tokens, HTTP-only cookies, signed cookies, and password encryption ensure that user data is protected.
 
@@ -10,12 +10,12 @@ The chatbot allows users to interact with an AI in real-time, and features secur
 
 - **Customizable Chatbot:** Powered by OpenAI's language model, delivering intelligent and dynamic responses.
 - **User Message Management:** User messages are stored in a MongoDB database, and users can retrieve or delete their messages as needed.
-- **Security Features:** 
+- **Security Features:**
   - JWT (JSON Web Tokens) for secure user authentication.
   - HTTP-only cookies and signed cookies for additional protection against XSS attacks.
   - Password encryption using industry-standard hashing algorithms.
   - Middleware chains that handle authentication, authorization, and data validation.
-  
+
 ## Tech Stack
 
 - **Frontend:** React.js, Axios
@@ -37,12 +37,14 @@ To run this application, you will need the following installed:
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/ai-chatbot-mern.git
    cd ai-chatbot-mern
    ```
 
 2. Install server dependencies:
+
    ```bash
    cd server
    npm install
@@ -69,16 +71,18 @@ To run this application, you will need the following installed:
 ## Application Structure
 
 ### Backend (Node.js & Express.js)
+
 - **`app.ts`**: Entry point for the server and routing.
 - **`routes/`**: Contains API routes for handling user activities, CRUD operations, etc.
 - **`models/`**: MongoDB models for users and messages.
 - **`db/`**: Database connectivity.
 - **`controllers/`**: Handles the logic and action methods for each API route.
 - **`utils/`**: JWT token, HTTP-only cookies implemented for authentication, validation, and error handling.
-  
+
 ## Security Considerations
 
 This application uses the following security measures to ensure data protection:
+
 - **JWT Tokens:** Secure user authentication and authorization.
 - **HTTP-Only Cookies:** Prevent access to cookies via JavaScript, mitigating XSS attacks.
 - **Signed Cookies:** Add tamper protection to cookies, ensuring integrity.
