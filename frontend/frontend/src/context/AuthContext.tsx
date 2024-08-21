@@ -11,13 +11,11 @@ import {
 	logoutUser,
 	signupUser,
 } from '../helpers/api-communicator';
-import { useNavigate } from 'react-router-dom';
 
 type User = {
 	name: string;
 	email: string;
 };
-
 type UserAuth = {
 	isLoggedIn: boolean;
 	user: User | null;
@@ -25,75 +23,43 @@ type UserAuth = {
 	signup: (name: string, email: string, password: string) => Promise<void>;
 	logout: () => Promise<void>;
 };
-
 const AuthContext = createContext<UserAuth | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [loading, setLoading] = useState(true); // Loading state for async operations
-	const navigate = useNavigate();
 
 	useEffect(() => {
+		// fetch if the user's cookies are valid then skip login
 		async function checkStatus() {
-			try {
-				const data = await checkAuthStatus();
-				if (data) {
-					setUser({ email: data.email, name: data.name });
-					setIsLoggedIn(true);
-				}
-			} catch (error) {
-				console.error('Error checking auth status:', error);
-			} finally {
-				setLoading(false); // Stop loading once check is complete
+			const data = await checkAuthStatus();
+			if (data) {
+				setUser({ email: data.email, name: data.name });
+				setIsLoggedIn(true);
 			}
 		}
 		checkStatus();
 	}, []);
-
-	const setUserData = (data: { name: string; email: string }) => {
-		setUser({ email: data.email, name: data.name });
-		setIsLoggedIn(true);
-	};
-
 	const login = async (email: string, password: string) => {
-		try {
-			const data = await loginUser(email, password);
-			if (data) {
-				setUserData(data);
-				navigate('/chat'); // Redirect to chat on successful login
-			}
-		} catch (error) {
-			console.error('Error logging in:', error);
+		const data = await loginUser(email, password);
+		if (data) {
+			setUser({ email: data.email, name: data.name });
+			setIsLoggedIn(true);
 		}
 	};
-
 	const signup = async (name: string, email: string, password: string) => {
-		try {
-			const data = await signupUser(name, email, password);
-			if (data) {
-				setUserData(data);
-				navigate('/chat'); // Redirect to chat on successful signup
-			}
-		} catch (error) {
-			console.error('Error signing up:', error);
+		const data = await signupUser(name, email, password);
+		if (data) {
+			setUser({ email: data.email, name: data.name });
+			setIsLoggedIn(true);
 		}
 	};
-
 	const logout = async () => {
-		try {
-			await logoutUser();
-			setIsLoggedIn(false);
-			setUser(null);
-			navigate('/'); // Redirect to home on logout
-		} catch (error) {
-			console.error('Error logging out:', error);
-		}
+		await logoutUser();
+		setIsLoggedIn(false);
+		setUser(null);
+		window.location.reload();
 	};
-
-	if (loading) {
-		return <div>Loading...</div>; // Show loading while checking auth status
-	}
 
 	const value = {
 		user,
@@ -102,7 +68,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		logout,
 		signup,
 	};
-
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
